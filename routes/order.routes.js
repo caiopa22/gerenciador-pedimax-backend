@@ -10,6 +10,7 @@ import {
     updateOrder,
     deleteOrder
 } from '../controller/order.controller.js';
+import { auth } from '../middlewares/authMiddleware.js';
 
 const orderRouter = express.Router();
 
@@ -19,16 +20,12 @@ orderRouter.post(
     createOrder
 );
 
-// GET /order/list - Listar todos
-orderRouter.get('/list', getAllOrders);
+orderRouter.get('/list', auth, getAllOrders);
 
-// GET /order/:orderId - Buscar por ID
-orderRouter.get('/:orderId', getOrderById);
+orderRouter.get('/:orderId', auth, getOrderById);
 
-// PUT /order/:orderId - Atualizar
-orderRouter.put('/:orderId', updateOrder);
+orderRouter.put('/:orderId', auth, updateOrder);
 
-// DELETE /order/:orderId - Deletar
-orderRouter.delete('/:orderId', deleteOrder);
+orderRouter.delete('/:orderId', auth, deleteOrder);
 
 export default orderRouter;

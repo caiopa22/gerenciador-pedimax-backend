@@ -5,8 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -30,4 +29,12 @@ model Items {
   price     Float
 
   order     Order   @relation(fields: [orderId], references: [orderId], onDelete: Cascade)
+}
+
+model Admins {
+  id           Int      @id @default(autoincrement())
+  username     String
+  email        String   @unique
+  password     String
+  creationDate DateTime @default(now())
 }

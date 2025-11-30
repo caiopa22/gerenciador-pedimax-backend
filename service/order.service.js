@@ -1,4 +1,3 @@
-// services/order.service.js
 import prisma from '../config/database.js';
 
 export const createOrder = async (orderDTO) => {

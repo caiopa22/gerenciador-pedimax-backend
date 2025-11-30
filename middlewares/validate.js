@@ -7,14 +7,12 @@
  */
 export const validate = (schema, source = 'body') => {
     return (req, res, next) => {
-        // Seleciona a fonte dos dados
         const dataToValidate = req[source];
 
-        // Valida os dados
         const { error, value } = schema.validate(dataToValidate, {
-            abortEarly: false,      // Retorna todos os erros
-            stripUnknown: true,     // Remove campos não definidos
-            convert: true           // Converte tipos automaticamente
+            abortEarly: false,
+            stripUnknown: true,
+            convert: true 
         });
 
         if (error) {
