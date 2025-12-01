@@ -18,8 +18,8 @@ export function auth(req, res, next) {
   }
 }
 
-export const isSelfAdmin = (req, res, next) => {
-  const routeId = Number(req.params.adminId);
+export const isSelfUser = (req, res, next) => {
+  const routeId = Number(req.params.userId);
   if (routeId !== req.user.id) {
     return res.status(403).json({ message: "Ação não permitida." });
   }

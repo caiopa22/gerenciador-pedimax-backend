@@ -1,8 +1,9 @@
 import bcrypt from "bcrypt"
+import { AppError } from "../utils/AppError.js";
 
-export const comparePassword = async (password, passwordToCompare, res) => {
+export const comparePassword = async (password, passwordToCompare) => {
     const isValid = await bcrypt.compare(password, passwordToCompare);
     if (!isValid) {
-        return res.status(400).json({ message: "Email ou senha inválidos." });
+        throw new AppError("Email ou senha inválidos.", 400)
     }
 }

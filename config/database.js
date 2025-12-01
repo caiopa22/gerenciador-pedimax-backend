@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-// Singleton do Prisma Client
-let prisma;
+ let prisma;
 
 if (!global.prisma) {
     global.prisma = new PrismaClient({

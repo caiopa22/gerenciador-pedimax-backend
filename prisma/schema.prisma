@@ -13,28 +13,31 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
-model Order {
-  orderId      String   @id                  
-  value        Float
-  creationDate DateTime
-
-  items        Items[]  // relação 1:N
-}
-
-model Items {
-  id        Int     @id @default(autoincrement())
-  orderId   String
-  productId Int
-  quantity  Int
-  price     Float
-
-  order     Order   @relation(fields: [orderId], references: [orderId], onDelete: Cascade)
-}
-
-model Admins {
+model Users {
   id           Int      @id @default(autoincrement())
   username     String
   email        String   @unique
   password     String
   creationDate DateTime @default(now())
+
+  order        Order[]
+}
+
+model Order {
+  orderId      String   @id                  
+  userId       Int
+  value        Float
+  creationDate DateTime
+
+  users        Users   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items        Items[]
+}
+
+model Items {
+  productId String  @id
+  orderId   String
+  quantity  Int
+  price     Float
+
+  order     Order   @relation(fields: [orderId], references: [orderId], onDelete: Cascade)
 }

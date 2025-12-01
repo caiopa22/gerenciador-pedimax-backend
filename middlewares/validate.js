@@ -29,7 +29,6 @@ export const validate = (schema, source = 'body') => {
             });
         }
 
-        // Substitui os dados originais pelos validados
         req[source] = value;
         
         next();
