@@ -57,7 +57,6 @@ const orderRouter = express.Router();
  *             $ref: '#/components/schemas/OrderItem'
  */
 
-
 /**
  * @swagger
  * /order:
@@ -109,13 +108,14 @@ const orderRouter = express.Router();
  *       401:
  *         description: Usuário não autenticado
  */
+// Rota para criar um novo pedido
+// Valida o corpo da requisição e exige autenticação via JWT
 orderRouter.post(
     '/',
     validate(createOrderSchema, 'body'),
     auth,
     createOrder
 );
-
 
 
 /**
@@ -132,6 +132,8 @@ orderRouter.post(
  *       401:
  *         description: Usuário não autenticado
  */
+// Rota para listar pedidos do usuário
+// Valida autenticação via JWT
 orderRouter.get('/list', auth, getAllOrders);
 
 /**
@@ -223,11 +225,16 @@ orderRouter.get('/list', auth, getAllOrders);
  *       403:
  *         description: Usuário não tem permissão
  */
-
+// Rota para buscar pedido do usuário
+// Valida autenticação via JWT
 orderRouter.get('/:orderId', auth, getOrderById);
 
+// Rota para alterar pedido do usuário
+// Valida autenticação via JWT
 orderRouter.put('/:orderId', auth, updateOrder);
 
+// Rota para deletar pedido do usuário
+// Valida autenticação via JWT
 orderRouter.delete('/:orderId', auth, deleteOrder);
 
 export default orderRouter;

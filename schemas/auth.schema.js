@@ -1,5 +1,6 @@
 import Joi from 'joi';
 
+// Schema do registro de usuários
 export const registerUserSchema = Joi.object({
     username: Joi.string()
         .required()
@@ -21,6 +22,7 @@ export const registerUserSchema = Joi.object({
         })
 });
 
+// Schema do login de usuários
 export const loginUserSchema = Joi.object({
     email: Joi.string()
         .required()

@@ -1,6 +1,7 @@
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 
+// Configuração e setup do Swagger
 const options = {
     definition: {
         openapi: "3.0.0",
@@ -25,6 +26,7 @@ const options = {
     apis: ["./routes/*.js", "./app.js"],
 };
 
+// Exports do Swagger
 export const swaggerSpec = swaggerJSDoc(options);
 export const swaggerServe = swaggerUi.serve;
 export const swaggerSetup = swaggerUi.setup(swaggerSpec);

@@ -56,6 +56,8 @@ const authRouter = express.Router();
  *       400:
  *         description: Erro de validação
  */
+// Rota para criar um novo pedido
+// Valida o corpo da requisição
 authRouter.post(
     '/register',
     validate(registerUserSchema, 'body'),
@@ -98,6 +100,8 @@ authRouter.post(
  *       400:
  *         description: Email ou senha inválidos
  */
+// Rota para realizar login do usuário
+// Valida o corpo da requisição
 authRouter.post(
     '/login',
     validate(loginUserSchema, 'body'),
@@ -158,6 +162,8 @@ authRouter.post(
  *       401:
  *         description: Não autenticado
  */
+// Rota para deletar usuário
+// Valida se o usuário da requisição é o mesmo do params e exige autenticação via JWT
 authRouter.delete(
     "/:userId",
     auth,
@@ -165,6 +171,8 @@ authRouter.delete(
     deleteUser
 );
 
+// Rota para alterar dados do usuário
+// Exige autenticação via JWT
 authRouter.put(
     "/:userId",
     auth,

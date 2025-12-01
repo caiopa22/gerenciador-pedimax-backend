@@ -1,11 +1,14 @@
 /**
- * Middleware global de tratamento de erros
+ * Middleware global para tratamento centralizado de erros
  */
 export const errorHandler = (err, req, res, next) => {
     console.error('Erro capturado:', err);
 
-    const formatError = (message, status) => res.status(status).json({ "message": message });
+    // Função para retornar erros padronizados
+    const formatError = (message, status) =>
+        res.status(status).json({ message });
 
+    // Erros específicos do Prisma
     if (err.code === 'P2002') {
         return formatError('Um registro com estes dados já existe', 409);
     }
@@ -18,6 +21,7 @@ export const errorHandler = (err, req, res, next) => {
         return formatError('Operação viola restrições do banco de dados', 400);
     }
 
+    // Erro inesperado
     return res.status(500).json({
         message: "Ocorreu um erro inesperado.",
         details: err.message

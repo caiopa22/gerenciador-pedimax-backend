@@ -8,13 +8,17 @@ import { swaggerServe, swaggerSetup } from "./swagger.js";
 const app = express();
 const port = 3000;
 
+// Uso de formato JSON durante a API 
 app.use(express.json())
 
+// Rotas para pedidos e autenticação na API (Tokens JWT)
 app.use("/order", orderRouter)
 app.use("/auth", authRouter)
 
+// Documentação Swagger
 app.use("/docs", swaggerServe, swaggerSetup);
 
+// Middleware errorHandler para lidar com erros
 app.use(errorHandler)
 
 

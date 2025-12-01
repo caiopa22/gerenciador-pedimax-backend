@@ -1,5 +1,6 @@
 import Joi from 'joi';
 
+// Schema do Item
 export const itemSchema = Joi.object({
     idItem: Joi.string()
         .required()

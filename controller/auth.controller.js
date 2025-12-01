@@ -4,12 +4,16 @@ import jwt from "jsonwebtoken";
 import { comparePassword } from "../service/auth.service.js";
 import { AppError } from "../utils/AppError.js";
 
-
+// Criar novo usuário
 export const registerUser = async (req, res, next) => {
     try {
         const { username, email, password } = req.body;
+        // Hash da senha
         const hashed = await bcrypt.hash(password, 10);
 
+        // Criando usuário pelo prisma
+        // Comentário add: Não criei um service para esses casos
+        // por que são simples demais para ter um service dedicado.
         const data = await prisma.users.create({
             data: {
                 username,
@@ -24,16 +28,22 @@ export const registerUser = async (req, res, next) => {
     }
 };
 
+// Login de usuário
 export const loginUser = async (req, res, next) => {
     try {
         const { email, password } = req.body;
 
+        // Encontrando usuário
         const user = await prisma.users.findUnique({ where: { email } });
 
+        // Caso não exista
         if (!user) return res.status(400).json({ message: "Usuário não encontrado" });
 
+        // Compara a senha do corpo com a do usuário encontrado
         await comparePassword(password, user.password);
 
+        // Criando token JWT, com id de usuário e email
+        // Duração de 1 hora
         const token = jwt.sign(
             { id: user.id, email: user.email },
             process.env.JWT_SECRET,
@@ -49,6 +59,7 @@ export const loginUser = async (req, res, next) => {
     }
 };
 
+// Alterar dados do usuário
 export const alterUser = async (req, res, next) => {
     try {
         const { username } = req.body;
@@ -58,6 +69,7 @@ export const alterUser = async (req, res, next) => {
             throw new AppError("Nome é obrigatório", 400);
         }
 
+        // Atualizando pelo prisma
         const updated = await prisma.users.update({
             where: { id: id },
             data: { username }
@@ -74,6 +86,7 @@ export const alterUser = async (req, res, next) => {
 
 export const deleteUser = async (req, res, next) => {
     try {
+        // Sem verificação, apagando usuário pelo id da req de forma segura
         await prisma.users.delete({
             where: { id: req.user.id }
         });

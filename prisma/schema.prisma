@@ -13,6 +13,8 @@ datasource db {
   url = env("DATABASE_URL")
 }
 
+// Modelo de usuários
+// Relacionamento: 1 usuário -> N pedidos
 model Users {
   id           Int      @id @default(autoincrement())
   username     String
@@ -23,6 +25,9 @@ model Users {
   order        Order[]
 }
 
+// Modelo de pedido
+// Relacionamento: N pedidos -> 1 usuário
+//                 1 pedido  -> N itens
 model Order {
   orderId      String   @id                  
   userId       Int
@@ -33,6 +38,8 @@ model Order {
   items        Items[]
 }
 
+// Modelo de itens
+// Relacionamento: N itens -> 1 pedido
 model Items {
   productId String  @id
   orderId   String

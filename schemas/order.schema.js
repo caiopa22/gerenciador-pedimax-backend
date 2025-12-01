@@ -4,7 +4,7 @@ import Joi from 'joi';
 import { itemSchema } from './item.schema.js';
 
 
-// Schema principal do pedido
+// Schema do pedido
 export const createOrderSchema = Joi.object({
     numeroPedido: Joi.string()
         .required()
